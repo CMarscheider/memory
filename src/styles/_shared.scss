@@ -1,0 +1,58 @@
+// Shared values for all stylesheets: colour palette, fonts, sizes and mixins.
+
+
+// Neutral colours
+$white: #ffffff;
+$black: #000000;
+$dark: #303131;
+$gray: #bdbdbd;
+$gray-light: #f6f6f6;
+$overlay: rgba(0, 0, 0, 0.5);
+
+// Accent of the home and settings views
+$accent: #f0ea6e;
+
+// Coding Vibes
+$mint: #4dd5bc;
+$mint-dark: #286f62;
+$mint-soft: #86e9d633; // 20 % opacity
+$mint-soft-dialog: #86e9d624; // 14 % opacity
+$mint-faint: #e8f3f0;
+
+// Gaming
+$slate-blue: #294f60;
+$pink-soft: #fd96c933; // 20 % opacity
+$pink-faint: #f6f1f3;
+$red: #e71c4f;
+$magenta: #ed1b76;
+$navy: #0a2835;
+
+// Player colours (shared by both themes)
+$player-blue: #2bb1ff;
+$player-orange: #f58e39;
+
+// Fonts
+$font-body: 'Almarai', sans-serif;
+$font-display: 'Red Rose', cursive;
+$font-size-medium: 1.125rem;
+
+// Sizes
+// The content keeps its desktop width and is centred; the background spans the full width
+$content-max-width: 64rem;
+$focus-outline-width: 3px;
+$focus-outline-offset: 4px;
+$focus-outline-offset-tight: 3px;
+
+// Animation
+$transition-duration: 0.3s;
+$hover-rotation: -45deg;
+
+/// Visible outline for keyboard focus.
+/// @param {Color} $color - Colour of the outline.
+/// @param {Length} $offset - Distance between the outline and the element.
+@mixin focus-outline($color, $offset: $focus-outline-offset) {
+  &:focus-visible {
+    outline: $focus-outline-width solid $color;
+    outline-offset: $offset;
+  }
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory</title>
+  <link rel="icon" type="image/svg+xml" href="./src/public/assets/stadia-controller.svg">
+</head>
+<body data-view="home">
+  <!-- Only one view is visible at a time; view-navigation.ts switches between them -->
+  <main>
+
+    <!-- Home view -->
+    <section class="view home" data-view="home">
+      <img class="home__background" src="./src/public/assets/stadia-controller-bg.svg" alt="" aria-hidden="true">
+
+      <div class="home__content">
+        <div class="home__heading">
+          <p class="home__intro">It's play time.</p>
+          <h1 class="home__title">Ready to play?</h1>
+        </div>
+
+        <button class="play-button" type="button" data-view-target="settings">
+          <img class="play-button__icon" src="./src/public/assets/stadia-controller.svg" alt="" aria-hidden="true">
+          <span class="play-button__label">Play</span>
+          <img class="play-button__arrow" src="./src/public/assets/arrow.svg" alt="" aria-hidden="true">
+        </button>
+      </div>
+    </section>
+
+    <!-- Settings view -->
+    <section class="view settings" data-view="settings" hidden>
+      <h1 class="settings__title">Settings</h1>
+
+      <div class="settings__box">
+        <div class="settings__options">
+          <fieldset class="setting">
+            <legend class="setting__legend">
+              <img class="setting__icon" src="./src/public/assets/palette.svg" alt="" aria-hidden="true">Game theme
+            </legend>
+            <label class="option">
+              <input class="option__input" type="radio" name="game-theme" value="code-vibes">
+              <span class="option__text">Code vibes theme</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+            <label class="option">
+              <input class="option__input" type="radio" name="game-theme" value="gaming">
+              <span class="option__text">Gaming Theme</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+          </fieldset>
+
+          <fieldset class="setting">
+            <legend class="setting__legend">
+              <img class="setting__icon" src="./src/public/assets/chess-pawn.svg" alt="" aria-hidden="true">Choose player
+            </legend>
+            <label class="option">
+              <input class="option__input" type="radio" name="player" value="blue">
+              <span class="option__text">Blue</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+            <label class="option">
+              <input class="option__input" type="radio" name="player" value="orange">
+              <span class="option__text">Orange</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+          </fieldset>
+
+          <fieldset class="setting">
+            <legend class="setting__legend">
+              <img class="setting__icon" src="./src/public/assets/board-size.svg" alt="" aria-hidden="true">Board size
+            </legend>
+            <label class="option">
+              <input class="option__input" type="radio" name="board-size" value="16">
+              <span class="option__text">16 cards</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+            <label class="option">
+              <input class="option__input" type="radio" name="board-size" value="24">
+              <span class="option__text">24 cards</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+            <label class="option">
+              <input class="option__input" type="radio" name="board-size" value="36">
+              <span class="option__text">36 cards</span>
+              <span class="option__marker" aria-hidden="true"></span>
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="settings__side">
+          <figure class="settings__preview">
+            <img class="settings__image" src="./src/public/assets/code-visual.svg" alt="Preview of the Code vibes theme">
+          </figure>
+
+          <section class="selection" aria-label="Current selection">
+            <p class="selection__summary">
+              <span class="selection__item" data-summary="game-theme" data-placeholder="Game theme">Game theme</span>
+              <span class="selection__divider" aria-hidden="true"></span>
+              <span class="selection__item" data-summary="player" data-placeholder="Player">Player</span>
+              <span class="selection__divider" aria-hidden="true"></span>
+              <span class="selection__item" data-summary="board-size" data-placeholder="Board size">Board size</span>
+            </p>
+
+            <button id="start-button" class="start-button" type="button" disabled>
+              <img class="start-button__icon" src="./src/public/assets/smart-display.svg" alt="" aria-hidden="true">
+              <span class="start-button__label">Start</span>
+            </button>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game view: images with data-theme-image are replaced by the image of the chosen theme -->
+    <section class="view game" data-view="game" hidden>
+      <header class="game-header">
+        <div class="score-panel">
+          <div class="player-score" data-player="blue">
+            <img class="player-score__badge" data-theme-image="label-blue" src="./src/public/assets/themes/code-vibes/label-blue.svg" alt="Blue player">
+            <span class="player-score__name">Blue</span>
+            <span class="player-score__points">0</span>
+          </div>
+
+          <div class="player-score" data-player="orange">
+            <img class="player-score__badge" data-theme-image="label-orange" src="./src/public/assets/themes/code-vibes/label-orange.svg" alt="Orange player">
+            <span class="player-score__name">Orange</span>
+            <span class="player-score__points">0</span>
+          </div>
+        </div>
+
+        <p class="game-header__current">
+          <span class="game-header__current-label">Current Player:</span>
+          <img class="game-header__current-badge" data-current-player-badge src="./src/public/assets/themes/code-vibes/label-blue.svg" alt="Current player">
+        </p>
+
+        <button class="exit-button" type="button" data-exit-button>
+          <img class="exit-button__icon" src="./src/public/assets/exit-label.svg" alt="" aria-hidden="true">
+          <span class="exit-button__label">Exit game</span>
+        </button>
+      </header>
+
+      <!-- board.ts creates the cards -->
+      <div class="board" data-board></div>
+
+      <dialog class="exit-dialog" data-exit-dialog aria-labelledby="exit-dialog-question">
+        <p class="exit-dialog__question" id="exit-dialog-question">Are you sure you want to quit the game?</p>
+        <div class="exit-dialog__actions">
+          <button class="dialog-button" type="button" data-dialog-back>Back to game</button>
+          <button class="dialog-button" type="button" data-dialog-exit>Exit game</button>
+        </div>
+      </dialog>
+    </section>
+
+    <!-- Game over view -->
+    <section class="view game-over" data-view="game-over" hidden>
+      <h1 class="game-over__heading">GAME OVER</h1>
+      <h2 class="game-over__title">Final Score</h2>
+
+      <div class="score-panel">
+        <div class="player-score" data-player="blue">
+          <img class="player-score__badge" data-theme-image="label-blue" src="./src/public/assets/themes/code-vibes/label-blue.svg" alt="Blue player">
+          <span class="player-score__name">Blue</span>
+          <span class="player-score__points">0</span>
+        </div>
+
+        <div class="player-score" data-player="orange">
+          <img class="player-score__badge" data-theme-image="label-orange" src="./src/public/assets/themes/code-vibes/label-orange.svg" alt="Orange player">
+          <span class="player-score__name">Orange</span>
+          <span class="player-score__points">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Winner view: winner.ts fills in the title, the name and the image -->
+    <section class="view winner" data-view="winner" hidden>
+      <div class="winner__confetti" data-winner-confetti>
+        <img class="winner__confetti-image" src="./src/public/assets/confetti.svg" alt="">
+        <img class="winner__confetti-image winner__confetti-image--large" src="./src/public/assets/confetti-large.svg" alt="">
+      </div>
+      <h1 class="winner__title" data-winner-title>The Winner is</h1>
+      <p class="winner__name" data-winner-name></p>
+      <img class="winner__image" data-winner-image src="./src/public/assets/chess-pawn-blue.svg" alt="">
+
+      <button class="exit-button" type="button" data-view-target="home">Back to start</button>
+    </section>
+
+  </main>
+
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

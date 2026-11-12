@@ -1,0 +1,369 @@
+@use 'shared';
+
+// Spacing and sizes
+$header-padding: 1rem;
+$header-gap: 1rem;
+$view-padding-block: 2rem;
+$view-padding-inline: 1rem;
+$control-padding: 0.75rem 1rem;
+$dialog-button-padding: 0.75rem 1.25rem;
+$icon-text-gap: 0.5rem;
+$panel-gap: 1.5rem;
+
+// Font sizes
+$current-player-font-size: 1.25rem;
+$question-font-size: 1.5rem;
+$title-font-size: 2rem;
+$winner-name-font-size: 2.5rem;
+$game-over-font-size: 3rem;
+
+// Board and cards
+$board-gap: 1rem;
+$board-padding: 1rem;
+$board-max-width: 48rem;
+$board-default-columns: 4;
+$card-flip-duration: 0.5s;
+$card-flip-angle: 180deg;
+$card-perspective: 1000px;
+$card-pattern-width: 50%;
+$card-face-inset: 15%;
+$card-face-size: 100% - 2 * $card-face-inset;
+
+// Dialog
+$dialog-max-width: min(90vw, 28rem);
+$dialog-padding: 2rem;
+$dialog-border-width: 2px;
+
+// Winner view
+$winner-gap: 1.5rem;
+$winner-image-size: 10rem;
+$confetti-width: min(80vw, 30rem);
+// From 1440px (90rem) the long confetti strip replaces the short one
+$widescreen-breakpoint: 90rem;
+
+/// Bold text in the font of the theme.
+/// @param {Length} $font-size - Font size.
+@mixin theme-text($font-size) {
+  font-family: var(--theme-font-display);
+  font-size: $font-size;
+  font-weight: 700;
+}
+
+/// Centred column in content width, for the views after the game.
+/// @param {Length} $gap - Space between the elements.
+@mixin centered-column($gap) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap;
+  width: 100%;
+  max-width: shared.$content-max-width;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/// Image that is as tall as the text next to it (1em = font size of the element).
+@mixin text-sized-image {
+  width: auto;
+  height: 1em;
+}
+
+// The colours of the game views come from the chosen theme
+body[data-view='game'],
+body[data-view='game-over'],
+body[data-view='winner'] {
+  background-color: var(--theme-background);
+  color: var(--theme-text);
+}
+
+.game {
+  padding-bottom: $view-padding-block;
+  box-sizing: border-box;
+}
+
+// Header at the top: scores on the left, current player in the middle, exit on the right
+.game-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $header-gap;
+  width: 100%;
+  max-width: shared.$content-max-width;
+  margin: 0 auto;
+  padding: $header-padding;
+  border-radius: var(--theme-radius);
+  background-color: var(--theme-header-background);
+  box-sizing: border-box;
+
+  &__current {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+    font-family: var(--theme-font-display);
+    font-size: $current-player-font-size;
+  }
+
+  &__current-badge {
+    @include text-sized-image;
+  }
+}
+
+// Box with the points of both players, in the header and in the game over view
+.score-panel {
+  display: flex;
+  align-items: center;
+  gap: $panel-gap;
+  padding: $control-padding;
+  border-radius: var(--theme-radius);
+  background-color: var(--theme-panel-background);
+}
+
+// One player in the box: badge, name and points in the player colour
+.player-score {
+  display: flex;
+  align-items: center;
+  gap: $icon-text-gap;
+  color: var(--player-color);
+  @include theme-text(shared.$font-size-medium);
+
+  &[data-player='blue'] {
+    --player-color: var(--theme-player-blue);
+  }
+
+  &[data-player='orange'] {
+    --player-color: var(--theme-player-orange);
+  }
+
+  &__badge {
+    @include text-sized-image;
+  }
+
+  // Depending on the theme the player name is shown or hidden
+  &__name {
+    display: var(--theme-player-name-display);
+  }
+}
+
+// Exit button in the header and "Back to start" in the winner view
+.exit-button {
+  display: inline-flex;
+  align-items: center;
+  gap: $icon-text-gap;
+  padding: $control-padding;
+  border: 1px solid var(--theme-button-border);
+  border-radius: var(--theme-radius);
+  background-color: var(--theme-button-background);
+  color: var(--theme-text);
+  cursor: pointer;
+  @include theme-text(shared.$font-size-medium);
+  @include shared.focus-outline(var(--theme-text));
+
+  // Icon as wide as the text next to it is tall
+  &__icon {
+    width: 1em;
+    height: auto;
+  }
+
+  // Hover: fill and text colour change, like the buttons in the dialog
+  &:hover,
+  &:focus-visible {
+    background-color: var(--theme-button-hover-background);
+    color: var(--theme-button-hover-text);
+  }
+}
+
+// Board: board.ts sets the number of columns through --board-columns
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns, $board-default-columns), minmax(0, 1fr));
+  gap: $board-gap;
+  width: 100%;
+  max-width: $board-max-width;
+  margin: 0 auto;
+  padding: $board-padding;
+  box-sizing: border-box;
+}
+
+// Card: a button with perspective; inside it the card turns around the Y axis
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: none;
+  background: none;
+  perspective: $card-perspective;
+  cursor: pointer;
+  @include shared.focus-outline(var(--theme-text), shared.$focus-outline-offset-tight);
+
+  &:disabled {
+    cursor: default;
+  }
+
+  // Rotating part of the card
+  &__inner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform $card-flip-duration ease;
+  }
+
+  // Revealed: the card is turned over
+  &.is-revealed &__inner {
+    transform: rotateY($card-flip-angle);
+  }
+
+  // Both sides lie on top of each other and are only visible from the front
+  &__back,
+  &__front {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--theme-radius);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  // Back: gradient from bottom left to top right, with the card-background pattern on top
+  &__back {
+    background-image: url('../public/assets/card-background.svg'),
+      linear-gradient(to top right, var(--theme-card-gradient-start), var(--theme-card-gradient-end));
+    background-repeat: no-repeat;
+    background-position: center, center;
+    background-size: $card-pattern-width auto, 100% 100%;
+  }
+
+  // Front: light surface with the symbol; it lies turned over behind the back
+  &__front {
+    background-color: var(--theme-card-face);
+    transform: rotateY($card-flip-angle);
+  }
+
+  // Symbol on the front of the card
+  &__face {
+    position: absolute;
+    inset: $card-face-inset;
+    width: $card-face-size;
+    height: $card-face-size;
+    object-fit: contain;
+  }
+}
+
+// Confirmation when leaving the game
+.exit-dialog {
+  max-width: $dialog-max-width;
+  padding: $dialog-padding;
+  border: none;
+  background-color: shared.$white;
+  color: var(--theme-dialog-text);
+
+  &::backdrop {
+    background-color: shared.$overlay;
+  }
+
+  &__question {
+    margin: 0 0 1.5rem;
+    text-align: center;
+    @include theme-text($question-font-size);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+.dialog-button {
+  padding: $dialog-button-padding;
+  border: $dialog-border-width solid var(--theme-dialog-accent);
+  border-radius: var(--theme-radius);
+  background-color: var(--theme-dialog-button-background);
+  color: var(--theme-dialog-accent);
+  cursor: pointer;
+  @include theme-text(shared.$font-size-medium);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--theme-dialog-accent);
+    color: shared.$white;
+  }
+}
+
+// Game over view: "GAME OVER", below it "Final Score" and the score box
+.game-over {
+  padding: $view-padding-block $view-padding-inline;
+  @include centered-column($view-padding-block);
+
+  &__heading {
+    margin: 0;
+    color: var(--theme-game-over-text);
+    @include theme-text($game-over-font-size);
+  }
+
+  &__title {
+    margin: 0;
+    @include theme-text($title-font-size);
+  }
+}
+
+// Winner view: confetti at the very top, below it title, name, image and back button
+.winner {
+  padding: 0 $view-padding-inline $view-padding-block;
+  text-align: center;
+  @include centered-column($winner-gap);
+
+  // Short confetti strip; from the widescreen breakpoint the long one replaces it
+  &__confetti-image {
+    display: block;
+    width: $confetti-width;
+    height: auto;
+  }
+
+  &__confetti-image--large {
+    display: none;
+  }
+
+  @media (min-width: $widescreen-breakpoint) {
+    &__confetti-image {
+      display: none;
+    }
+
+    &__confetti-image--large {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    @include theme-text($title-font-size);
+  }
+
+  // The name has the colour of the winner or the colour for a draw
+  &__name {
+    margin: 0;
+    @include theme-text($winner-name-font-size);
+
+    &[data-result='blue'] {
+      color: var(--theme-player-blue);
+    }
+
+    &[data-result='orange'] {
+      color: var(--theme-player-orange);
+    }
+
+    &[data-result='draw'] {
+      color: var(--theme-draw-text);
+    }
+  }
+
+  // Fixed box winner image 
+  &__image {
+    width: $winner-image-size;
+    height: $winner-image-size;
+    object-fit: contain;
+  }
+}

@@ -1,0 +1,26 @@
+// Local fonts (OFL licence), loaded once in main.ts.
+// Each entry: font family, font file, and the weight range the file covers.
+$local-fonts: (
+  ('Almarai', 'almarai-regular.ttf', 400),
+  ('Almarai', 'almarai-bold.ttf', 700),
+  ('Red Rose', 'red-rose-variable.ttf', 300 700),
+  ('Orbitron', 'orbitron-variable.ttf', 400 900),
+);
+
+/// Creates one @font-face rule for a font file.
+/// @param {String} $family - Name used in the CSS, e.g. 'Almarai'.
+/// @param {String} $file - File name inside assets/fonts.
+/// @param {Number} $weight - Weight, or a weight range such as 300 700.
+@mixin local-font($family, $file, $weight) {
+  @font-face {
+    font-family: $family;
+    src: url('../public/assets/fonts/#{$file}') format('truetype');
+    font-weight: $weight;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+@each $family, $file, $weight in $local-fonts {
+  @include local-font($family, $file, $weight);
+}

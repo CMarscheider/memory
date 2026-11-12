@@ -1,0 +1,113 @@
+@use 'shared';
+
+// Spacing
+$content-gap: 1.5rem;
+$button-padding: 1.25rem 2rem;
+$icon-size: 2.5rem;
+$arrow-size: 2.2rem;
+
+// Views that are not visible are hidden completely
+[hidden] {
+  display: none !important;
+}
+
+// Base layout for all views; every view sets its own colours
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: shared.$font-body;
+}
+
+body[data-view='home'] {
+  background-color: shared.$dark;
+  color: shared.$white;
+  overflow-x: hidden;
+}
+
+.home {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+
+  &__background {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 22rem;
+    max-width: 60vw;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $content-gap;
+    text-align: center;
+  }
+
+  &__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  &__intro {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: shared.$font-display;
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+}
+
+.play-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: $button-padding;
+  border: none;
+  border-radius: 0;
+  background-color: shared.$accent;
+  color: shared.$dark;
+  font-family: shared.$font-display;
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+
+  &__icon {
+    width: $icon-size;
+    height: auto;
+    transition: transform shared.$transition-duration ease;
+  }
+
+  &__label {
+    line-height: 1;
+  }
+
+  &__arrow {
+    width: $arrow-size;
+    height: auto;
+  }
+
+  &:hover &__icon {
+    transform: rotate(shared.$hover-rotation);
+  }
+
+  @include shared.focus-outline(shared.$white);
+}

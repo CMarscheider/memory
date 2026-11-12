@@ -1,0 +1,78 @@
+@use 'sass:map';
+@use 'shared';
+
+// Themes: which colour of the palette (see _shared.scss) is used where.
+// Every theme is a map. The CSS variables are generated from it, e.g. --theme-text.
+// The pages only use the variables; the data-theme attribute on the body selects the set.
+
+$default-theme: 'code-vibes';
+
+$themes: (
+  'code-vibes': (
+    background: shared.$dark,
+    text: shared.$white,
+    font-display: shared.$font-display,
+    header-background: transparent,
+    panel-background: shared.$mint-soft,
+    button-background: shared.$mint-soft,
+    button-border: shared.$mint,
+    button-hover-background: shared.$mint,
+    button-hover-text: shared.$white,
+    radius: 0,
+    card-face: shared.$mint-faint,
+    card-gradient-start: shared.$mint-dark,
+    card-gradient-end: shared.$mint,
+    player-blue: shared.$player-blue,
+    player-orange: shared.$player-orange,
+    player-name-display: block,
+    game-over-text: shared.$mint,
+    draw-text: shared.$mint,
+    dialog-accent: shared.$mint,
+    dialog-button-background: shared.$mint-soft-dialog,
+    dialog-text: shared.$black,
+  ),
+
+  'gaming': (
+    background: shared.$slate-blue,
+    text: shared.$white,
+    font-display: ('Orbitron', sans-serif),
+    header-background: shared.$pink-soft,
+    panel-background: shared.$white,
+    button-background: shared.$pink-soft,
+    button-border: shared.$red,
+    button-hover-background: shared.$red,
+    button-hover-text: shared.$white,
+    radius: 10px,
+    card-face: shared.$pink-faint,
+    card-gradient-start: shared.$navy,
+    card-gradient-end: shared.$magenta,
+    player-blue: shared.$player-blue,
+    player-orange: shared.$player-orange,
+    player-name-display: none,
+    game-over-text: shared.$magenta,
+    draw-text: shared.$magenta,
+    dialog-accent: shared.$red,
+    dialog-button-background: shared.$pink-soft,
+    dialog-text: shared.$black,
+  ),
+);
+
+/// Writes all values of a theme map as CSS variables.
+/// @param {Map} $tokens - Name and value of every property of the theme.
+@mixin theme-variables($tokens) {
+  @each $name, $value in $tokens {
+    --theme-#{$name}: #{$value};
+  }
+}
+
+// Default, as long as no theme is chosen
+:root {
+  @include theme-variables(map.get($themes, $default-theme));
+}
+
+// One block per theme with the same variables
+@each $theme-name, $tokens in $themes {
+  [data-theme='#{$theme-name}'] {
+    @include theme-variables($tokens);
+  }
+}
