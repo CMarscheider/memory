@@ -29,20 +29,13 @@ function showThemePreview(themeId: string): void {
   previewImage.hidden = false;
 }
 
-/** Hides the preview image while no theme is chosen. */
-function hideThemePreview(): void {
-  getRequiredElement<HTMLImageElement>(PREVIEW_IMAGE_SELECTOR).hidden = true;
-}
-
-/** Shows the preview of the chosen game theme, or hides it if none is chosen. */
+/** Shows the preview of the chosen game theme. A theme is always chosen, so there is no empty state. */
 function refreshThemePreview(): void {
   const chosenTheme: string | undefined = findChosenOption(GAME_THEME_SETTING)?.value;
 
-  if (chosenTheme === undefined) {
-    hideThemePreview();
-    return;
+  if (chosenTheme !== undefined) {
+    showThemePreview(chosenTheme);
   }
-  showThemePreview(chosenTheme);
 }
 
 /** Keeps the theme preview up to date and shows the initial state. */
