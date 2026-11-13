@@ -3,7 +3,6 @@ import gamingImageUrl from '../public/assets/game-visual.svg';
 import { getRequiredElement } from './dom-utils';
 import { GAME_THEME_SETTING, findChosenOption, listenToSettingChanges } from './settings-utils';
 
-/** Image and alt text shown for one game theme. */
 interface ThemePreview {
   imageUrl: string;
   altText: string;

@@ -3,10 +3,8 @@ import { createCardSymbols } from './deck';
 import { PlayerId, getOtherPlayer } from './players';
 import { GameThemeId } from './themes';
 
-/** Number of cards a player may turn over at the same time. */
 const MAX_REVEALED_CARDS: number = 2;
 
-/** Everything that changes during one game. */
 interface GameState {
   theme: GameThemeId;
   cardSymbols: number[];
@@ -145,17 +143,26 @@ export function getCardSymbol(index: number): number {
   return requireGameState().cardSymbols[index];
 }
 
-/** @returns The theme of the running game. */
+/**
+ * Returns the theme of the running game.
+ * @returns The theme of the running game.
+ */
 export function getGameTheme(): GameThemeId {
   return requireGameState().theme;
 }
 
-/** @returns The player whose turn it is. */
+/**
+ * Returns the player whose turn it is.
+ * @returns The player whose turn it is.
+ */
 export function getCurrentPlayer(): PlayerId {
   return requireGameState().currentPlayer;
 }
 
-/** @returns The points of both players. */
+/**
+ * Returns the points of both players.
+ * @returns The points of both players, by player id.
+ */
 export function getScores(): Record<PlayerId, number> {
   return requireGameState().scores;
 }

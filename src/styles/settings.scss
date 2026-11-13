@@ -1,7 +1,5 @@
 @use 'shared';
 
-// Spacing and sizes
-// Fixed width of the options, so the yellow lines do not move (even when the chosen option is bold)
 $options-width: 18rem;
 $box-padding: 2rem;
 $preview-max-width: 26rem;
@@ -18,7 +16,6 @@ $accent-diamond-size: 0.8rem;
 $accent-diamond-offset: 1.5rem;
 $accent-line-height: 0.25rem;
 $divider-tilt: 20deg;
-// Opacity for elements that are not chosen yet or disabled
 $muted-opacity: 0.5;
 $mobile-breakpoint: 40rem;
 

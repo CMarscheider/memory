@@ -15,7 +15,6 @@ import {
   switchPlayer,
 } from './game-state';
 
-/** Time in milliseconds that a mismatched pair stays visible. */
 const HIDE_DELAY_MS: number = 1000;
 
 let hideTimerId: number | null = null;

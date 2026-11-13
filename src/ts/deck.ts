@@ -1,11 +1,8 @@
 import { findThemeImageUrl } from './theme-assets';
 import { GameThemeId } from './themes';
 
-/** Number of different card faces available per theme (card-symbol-1 to card-symbol-18). */
 const SYMBOL_COUNT: number = 18;
-/** Every card face appears on exactly this many cards. */
 const CARDS_PER_PAIR: number = 2;
-/** Card faces are named card-symbol-1.svg, card-symbol-2.svg and so on. */
 const CARD_FACE_FILE_PREFIX: string = 'card-symbol-';
 const MISSING_IMAGE_URL: string = '';
 

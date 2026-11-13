@@ -1,9 +1,7 @@
 import { showView } from './view-navigation';
 import { showWinner } from './winner';
 
-/** Time in milliseconds between the last match and the game over view. */
 const GAME_OVER_DELAY_MS: number = 1000;
-/** Time in milliseconds the game over view stays before the winner is shown. */
 const WINNER_DELAY_MS: number = 2000;
 
 let gameOverTimerId: number | null = null;

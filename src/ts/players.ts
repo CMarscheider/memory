@@ -1,4 +1,3 @@
-/** Ids of the two players; they match the `value` attributes of the player radio buttons. */
 export type PlayerId = 'blue' | 'orange';
 
 export const PLAYER_IDS: readonly PlayerId[] = ['blue', 'orange'];

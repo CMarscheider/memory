@@ -1,4 +1,3 @@
-/** Names of the views on the single page; they match the `data-view` attribute of each section. */
 export type ViewName = 'home' | 'settings' | 'game' | 'game-over' | 'winner';
 
 const VIEW_SECTION_SELECTOR: string = '.view';

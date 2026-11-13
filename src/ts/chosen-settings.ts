@@ -2,14 +2,12 @@ import { PlayerId, isPlayerId } from './players';
 import { BOARD_SIZE_SETTING, GAME_THEME_SETTING, PLAYER_SETTING, findChosenOption } from './settings-utils';
 import { GameThemeId, isGameThemeId } from './themes';
 
-/** The three choices made on the settings page. */
 export interface ChosenSettings {
   gameTheme: GameThemeId;
   player: PlayerId;
   boardSize: string;
 }
 
-/** The settings of the last start; `null` until the game has been started. */
 let storedSettings: ChosenSettings | null = null;
 
 /**

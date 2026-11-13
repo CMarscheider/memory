@@ -1,6 +1,5 @@
 @use 'shared';
 
-// Spacing and sizes
 $header-padding: 1rem;
 $header-gap: 1rem;
 $view-padding-block: 2rem;
@@ -10,14 +9,12 @@ $dialog-button-padding: 0.75rem 1.25rem;
 $icon-text-gap: 0.5rem;
 $panel-gap: 1.5rem;
 
-// Font sizes
 $current-player-font-size: 1.25rem;
 $question-font-size: 1.5rem;
 $title-font-size: 2rem;
 $winner-name-font-size: 2.5rem;
 $game-over-font-size: 3rem;
 
-// Board and cards
 $board-gap: 1rem;
 $board-padding: 1rem;
 $board-max-width: 48rem;
@@ -29,16 +26,13 @@ $card-pattern-width: 50%;
 $card-face-inset: 15%;
 $card-face-size: 100% - 2 * $card-face-inset;
 
-// Dialog
 $dialog-max-width: min(90vw, 28rem);
 $dialog-padding: 2rem;
 $dialog-border-width: 2px;
 
-// Winner view
 $winner-gap: 1.5rem;
 $winner-image-size: 10rem;
 $confetti-width: min(80vw, 30rem);
-// From 1440px (90rem) the long confetti strip replaces the short one
 $widescreen-breakpoint: 90rem;
 
 /// Bold text in the font of the theme.
@@ -292,8 +286,6 @@ body[data-view='winner'] {
   }
 }
 
-// Game over view: "GAME OVER", below it "Final Score" and the score box
-// Views slide in from the bottom of the screen
 $slide-duration: 2.6s;
 
 // Short rise with fade-in; it stays inside the window, so no scrollbar appears

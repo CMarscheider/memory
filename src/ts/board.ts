@@ -9,7 +9,6 @@ const CARD_FACE_CLASS: string = 'card__face';
 const REVEALED_CLASS: string = 'is-revealed';
 const COLUMNS_PROPERTY: string = '--board-columns';
 
-/** Number of columns per board size; the key is the board size chosen on the settings page. */
 const BOARD_COLUMNS: Record<string, number> = {
   '16': 4,
   '24': 6,

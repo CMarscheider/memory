@@ -3,7 +3,6 @@ import { GameThemeId } from './themes';
 const THEME_IMAGE_SELECTOR: string = '[data-theme-image]';
 const THEMES_FOLDER: string = '../public/assets/themes';
 
-/** URLs of all theme images, bundled by Vite. The pattern must be a literal, so it repeats the folder. */
 const THEME_IMAGE_URLS: Record<string, string> = import.meta.glob('../public/assets/themes/*/*.svg', {
   eager: true,
   query: '?url',

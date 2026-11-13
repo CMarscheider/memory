@@ -7,9 +7,7 @@ import { PlayerId } from './players';
 import { findThemeImageUrl } from './theme-assets';
 import { showView } from './view-navigation';
 
-/** Everything the winner view shows for one game result. */
 interface GameResult {
-  /** Styles the name: the colour of the winner, or the draw colour. */
   resultId: PlayerId | 'draw';
   titleText: string;
   nameText: string;
@@ -23,7 +21,6 @@ const WINNER_NAME_SELECTOR: string = '[data-winner-name]';
 const WINNER_IMAGE_SELECTOR: string = '[data-winner-image]';
 
 const WINNER_TITLE_TEXT: string = 'The Winner is';
-/** File name start of the trophy in a theme folder; only some themes have one. */
 const TROPHY_FILE_PREFIX: string = 'trophy';
 
 const PLAYER_PAWN_URLS: Record<PlayerId, string> = {
@@ -36,7 +33,6 @@ const PLAYER_NAME_TEXTS: Record<PlayerId, string> = {
   orange: 'ORANGE PLAYER',
 };
 
-/** A draw has no confetti; it shows "It's a DRAW" and the scale icon. */
 const DRAW_RESULT: GameResult = {
   resultId: 'draw',
   titleText: "It's a",

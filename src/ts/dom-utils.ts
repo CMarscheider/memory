@@ -4,7 +4,6 @@
  * @returns The matching element, typed as the element type given at the call.
  */
 export function getRequiredElement<ElementType extends Element>(selector: string): ElementType {
-  // Ask the page for the first element that matches the selector. The result is the element or null.
   const element: ElementType | null = document.querySelector<ElementType>(selector);
 
   // If nothing matched, stop here with an error that names the selector, so the cause is easy to find.

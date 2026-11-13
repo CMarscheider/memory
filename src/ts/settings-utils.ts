@@ -1,4 +1,3 @@
-/** Names of the three setting groups; they match the `name` attributes of the radio buttons. */
 export const GAME_THEME_SETTING: string = 'game-theme';
 export const PLAYER_SETTING: string = 'player';
 export const BOARD_SIZE_SETTING: string = 'board-size';

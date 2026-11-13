@@ -1,4 +1,3 @@
-/** Ids of the game themes; they match the `value` attributes of the theme radio buttons. */
 export type GameThemeId = 'code-vibes' | 'gaming';
 
 export const GAME_THEME_IDS: readonly GameThemeId[] = ['code-vibes', 'gaming'];
