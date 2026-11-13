@@ -17,6 +17,17 @@ export function getCardFaceUrl(themeId: GameThemeId, symbolNumber: number): stri
 }
 
 /**
+ * Loads every card face of a theme into the browser cache, so a card shows its face at once.
+ * @param themeId - The game theme.
+ */
+export function preloadCardFaces(themeId: GameThemeId): void {
+  for (let symbolNumber: number = 1; symbolNumber <= SYMBOL_COUNT; symbolNumber += 1) {
+    const preloadImage: HTMLImageElement = new Image();
+    preloadImage.src = getCardFaceUrl(themeId, symbolNumber);
+  }
+}
+
+/**
  * Shuffles a list in place with the Fisher-Yates algorithm.
  * @param items - The list to shuffle.
  * @returns The same list, now in random order.
