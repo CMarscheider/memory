@@ -12,6 +12,10 @@ $radio-size: 1.375rem;
 $radio-border-width: 0.15rem;
 $radio-inner-ring: 0.15rem;
 $selection-shift: 7.5rem;
+$preview-switch-duration: 0.4s;
+$theme-item-width: 8em;
+$player-item-width: 3.5em;
+$board-item-width: 5em;
 $accent-diamond-size: 0.8rem;
 $accent-diamond-offset: 1.5rem;
 $accent-line-height: 0.25rem;
@@ -104,6 +108,23 @@ body[data-view='settings'] {
     display: block;
     width: 100%;
     height: auto;
+
+    // Plays when another theme is previewed: the image fades in and grows slightly
+    &.is-switching {
+      animation: preview-switch $preview-switch-duration ease-out;
+    }
+  }
+}
+
+@keyframes preview-switch {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -158,10 +179,21 @@ body[data-view='settings'] {
     @include shared.focus-outline(shared.$dark, shared.$focus-outline-offset-tight);
   }
 
+  // The text is as wide as its bold form (hidden ::after), so the row does not change when it is chosen
   &__text {
+    display: inline-flex;
+    flex-direction: column;
     font-size: shared.$font-size-medium;
     font-weight: 400;
     white-space: nowrap;
+
+    &::after {
+      content: attr(data-text);
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      font-weight: 700;
+    }
   }
 
   // Yellow line with a diamond on the right, only visible for the chosen option
@@ -235,6 +267,8 @@ body[data-view='settings'] {
 
   // The selection stays in one line; only long values move the button below it
   &__summary {
+    display: flex;
+    align-items: center;
     margin: 0;
     font-size: 1.25rem;
     white-space: nowrap;
@@ -245,7 +279,24 @@ body[data-view='settings'] {
     }
   }
 
+  // Every choice has a fixed width (in em, so it shrinks with the text),
+  // so changing the choice does not move the dividers or the other items
   &__item {
+    flex: none;
+    text-align: center;
+
+    &[data-summary='game-theme'] {
+      width: $theme-item-width;
+    }
+
+    &[data-summary='player'] {
+      width: $player-item-width;
+    }
+
+    &[data-summary='board-size'] {
+      width: $board-item-width;
+    }
+
     &.is-empty {
       opacity: $muted-opacity;
     }
@@ -253,13 +304,13 @@ body[data-view='settings'] {
 
   // divider
   &__divider {
+    flex: none;
     display: inline-block;
     width: $divider-width;
     height: $divider-height;
     margin: 0 0.5rem;
     background-color: shared.$accent;
     transform: rotate($divider-tilt);
-    vertical-align: middle;
   }
 }
 
