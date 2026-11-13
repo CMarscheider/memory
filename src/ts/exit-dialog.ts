@@ -29,7 +29,7 @@ function closeExitDialog(): void {
 function quitGame(): void {
   closeExitDialog();
   cancelPendingTimers();
-  showView('home');
+  showView('settings');
 }
 
 /** Connects the exit button and the buttons of the confirmation dialog. */

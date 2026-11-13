@@ -293,7 +293,24 @@ body[data-view='winner'] {
 }
 
 // Game over view: "GAME OVER", below it "Final Score" and the score box
+// Views slide in from the bottom of the screen
+$slide-duration: 2.6s;
+
+// Short rise with fade-in; it stays inside the window, so no scrollbar appears
+@keyframes slide-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .game-over {
+  animation: slide-up-in $slide-duration ease-out;
   padding: $view-padding-block $view-padding-inline;
   @include centered-column($view-padding-block);
 
@@ -311,6 +328,7 @@ body[data-view='winner'] {
 
 // Winner view: confetti at the very top, below it title, name, image and back button
 .winner {
+  animation: slide-up-in $slide-duration ease-out;
   padding: 0 $view-padding-inline $view-padding-block;
   text-align: center;
   @include centered-column($winner-gap);
